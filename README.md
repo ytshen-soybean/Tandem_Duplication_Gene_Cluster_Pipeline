@@ -10,7 +10,7 @@ A pipeline for identifying tandemly duplicated gene clusters at genome wide base
 
 **Schematic diagram of pipeline**
 
-<img width="596" height="769" alt="image" src="https://github.com/user-attachments/assets/c358fe6b-f44b-43ff-ad55-1e2dddbe4d89" />
+<img width="200" height="259" alt="image" src="https://github.com/user-attachments/assets/c358fe6b-f44b-43ff-ad55-1e2dddbe4d89" />
 
 
  
@@ -183,4 +183,8 @@ multigene_tandem_repeat.txt
 `mkdir process`
 
 `mv demo_*.txt *_group.txt *_split.txt demo_primary_pro.fasta demo.dmnd demo.blast process`
+
+**CONTACT**
+Please email to shenyanting@yzwlab.cn
+
 
