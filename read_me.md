@@ -1,52 +1,53 @@
-µÚÒ»²½£ºµ°°×ĞòÁĞall-allµÄ±È¶Ô
-##Ã¿¸ö»ùÒòÑ¡Ôñprimary_protein£¬¿ÉÒÔÍ¨¹ıjcvi×Ô´øµÄformat¹¤¾ßÈ¥Ñ¡Ôñ£¬Ò²¿ÉÒÔ¸ù¾İ×Ô¼ºµÄ²ßÂÔÈ¥Ñ¡Ôñ¡£ÀûÓÃdiamond½øĞĞ»ùÒò×éµ°°×ĞòÁĞÖ®¼ä¶à¶Ô¶àµÄ±È¶Ô¡£
-##¸ù¾İÑÏ¸ñ³Ì¶È£¬Ò²¿ÉÒÔÉèÖÃ±È¶ÔÏàËÆ¶È£¬coverage°Ù·Ö±È£¨--id 80 --query-cover 80 --subject-cover 80£©µÈ²ÎÊı
+ç¬¬ä¸€æ­¥ï¼šè›‹ç™½åºåˆ—all-allçš„æ¯”å¯¹
+##æ¯ä¸ªåŸºå› é€‰æ‹©primary_proteinï¼Œå¯ä»¥é€šè¿‡jcviè‡ªå¸¦çš„formatå·¥å…·å»é€‰æ‹©ï¼Œä¹Ÿå¯ä»¥æ ¹æ®è‡ªå·±çš„ç­–ç•¥å»é€‰æ‹©ã€‚åˆ©ç”¨diamondè¿›è¡ŒåŸºå› ç»„è›‹ç™½åºåˆ—ä¹‹é—´å¤šå¯¹å¤šçš„æ¯”å¯¹ã€‚
+##æ ¹æ®ä¸¥æ ¼ç¨‹åº¦ï¼Œä¹Ÿå¯ä»¥è®¾ç½®æ¯”å¯¹ç›¸ä¼¼åº¦ï¼Œcoverageç™¾åˆ†æ¯”ï¼ˆ--id 80 --query-cover 80 --subject-cover 80ï¼‰ç­‰å‚æ•°
 diamond makedb --in TZX248_primary_protein.fasta -d TZX248
-diamond blastp -d TZX248 -q TZX248_primary_protein.fasta -o Soy.blast -p 40 --sensitive --evalue 1e-10 --quiet   £¨691004ĞĞ£©
-##ÕûÀíblast½á¹û
-#¹ıÂË×ÔÉíÓë×ÔÉíµÄ±È¶Ô
-awk '$1!=$2' Soy.blast >Soy_filter1.blast £¨637699ĞĞ£©
-#É¸Ñ¡Í¬Ò»¸öÈ¾É«ÌåÄÚ²¿»ùÒòµÄ±È¶Ô£¬µÃµ½ÄÚ²¿»ùÒò¶Ô¡£
+diamond blastp -d TZX248 -q TZX248_primary_protein.fasta -o Soy.blast -p 40 --sensitive --evalue 1e-10 --quiet   ï¼ˆ691004è¡Œï¼‰
+##æ•´ç†blastç»“æœ
+#è¿‡æ»¤è‡ªèº«ä¸è‡ªèº«çš„æ¯”å¯¹
+awk '$1!=$2' Soy.blast >Soy_filter1.blast ï¼ˆ637699è¡Œï¼‰
+#ç­›é€‰åŒä¸€ä¸ªæŸ“è‰²ä½“å†…éƒ¨åŸºå› çš„æ¯”å¯¹ï¼Œå¾—åˆ°å†…éƒ¨åŸºå› å¯¹ã€‚
 awk '$1!=$2' Soy.blast >Soy_filter1.blast
 awk '{print $1,$2,$0}' Soy_filter1.blast >test.blast
 awk '{gsub(/G.*/,"G",$1);print}' OFS="\t" test.blast >test-2.blast
 awk '{gsub(/G.*/,"G",$2);print}' OFS="\t" test-2.blast >test-3.blast
-awk '$1==$2' test-3.blast OFS="\t" >Soy_filter2.blast (62176ĞĞ)
+awk '$1==$2' test-3.blast OFS="\t" >Soy_filter2.blast (62176è¡Œ)
 awk '{print $3,$4}' OFS="\t" Soy_filter2.blast >Soy_genepair_1.txt
 rm test.blast test-2.blast test-3.blast Soy_filter2.blast
-#±£Áô±È¶Ô»ùÒò¶ÔÖ®¼ä¾àÀë<=50ÇÒ²»Îª0µÄ»ùÒò¶Ô£¨»ùÒòµÄ¾àÀëÓÃIDÖĞGºóÃæµÄËÄÎ»À´ºâÁ¿£¬ºóÃæÁ½Î»±»ºöÂÔ¡£Chr13 rDNAÇø¼äµÄ»ùÒòÓĞÒ»Ğ©ºóÁ½Î»²»Ò»Ñù£¬ÕâĞ©»ùÒòºöÂÔ²»¹Ü£©
-python step1_genepair_filter.py <Soy_genepair_1.txt >Soy_genepair_2.txt  £¨27633ĞĞ£©
+#ä¿ç•™æ¯”å¯¹åŸºå› å¯¹ä¹‹é—´è·ç¦»<=50ä¸”ä¸ä¸º0çš„åŸºå› å¯¹ï¼ˆåŸºå› çš„è·ç¦»ç”¨IDä¸­Gåé¢çš„å››ä½æ¥è¡¡é‡ï¼Œåé¢ä¸¤ä½è¢«å¿½ç•¥ã€‚Chr13 rDNAåŒºé—´çš„åŸºå› æœ‰ä¸€äº›åä¸¤ä½ä¸ä¸€æ ·ï¼Œè¿™äº›åŸºå› å¿½ç•¥ä¸ç®¡ï¼‰
+python step1_genepair_filter.py <Soy_genepair_1.txt >Soy_genepair_2.txt  ï¼ˆ27633è¡Œï¼‰
 
-µÚ¶ş²½£º½«»ùÒò°´ÕÕ±È¶Ô½á¹û½øĞĞ·Ö×é
-#É¸Ñ¡ºóµÄ±È¶Ô»ùÒò¶ÔÖĞ£¬Ò»¸ö»ùÒò¿ÉÄÜºÍ¶à¸ö»ùÒò¹ØÁª¡£ÀûÓÃÍ¼µÄÔ­Àí£¬½«ËùÓĞÓĞ¹ØÁªµÄ»ùÒò·ÖÎªÒ»¸ögroup
-perl step2_gene_group.pl Soy_genepair_2.txt Soy_genepair_grouping.txt  £¨3498¸ögroup£©
+ç¬¬äºŒæ­¥ï¼šå°†åŸºå› æŒ‰ç…§æ¯”å¯¹ç»“æœè¿›è¡Œåˆ†ç»„
+#ç­›é€‰åçš„æ¯”å¯¹åŸºå› å¯¹ä¸­ï¼Œä¸€ä¸ªåŸºå› å¯èƒ½å’Œå¤šä¸ªåŸºå› å…³è”ã€‚åˆ©ç”¨å›¾çš„åŸç†ï¼Œå°†æ‰€æœ‰æœ‰å…³è”çš„åŸºå› åˆ†ä¸ºä¸€ä¸ªgroup
+perl step2_gene_group.pl Soy_genepair_2.txt Soy_genepair_grouping.txt  ï¼ˆ3498ä¸ªgroupï¼‰
 
-µÚÈı²½£º½«°üº¬µÄ»ùÒòÔÚÎ»ÖÃÉÏÓĞÖØµşµÄgroupºÏ²¢µ½Ò»Æğ
-#°´ÕÕÃ¿¸ögroupµÄÆğÊ¼»ùÒòµÄ±àºÅ£¬½«groupÖØĞÂ½øĞĞÅÅĞò
+ç¬¬ä¸‰æ­¥ï¼šå°†åŒ…å«çš„åŸºå› åœ¨ä½ç½®ä¸Šæœ‰é‡å çš„groupåˆå¹¶åˆ°ä¸€èµ·
+#æŒ‰ç…§æ¯ä¸ªgroupçš„èµ·å§‹åŸºå› çš„ç¼–å·ï¼Œå°†groupé‡æ–°è¿›è¡Œæ’åº
 sort -k 2,2 Soy_genepair_grouping.txt -o Soy_genepair_grouping_sort.txt
-#¼ì²éÅÅĞòµÄ½á¹û£¬È·±£ÏÂÒ»¸ögroupµÄÆğÊ¼»ùÒòIDÔÚÉÏÒ»¸ögroupµÄÆğÊ¼»ùÒòIDÖ®ºó¡£
+#æ£€æŸ¥æ’åºçš„ç»“æœï¼Œç¡®ä¿ä¸‹ä¸€ä¸ªgroupçš„èµ·å§‹åŸºå› IDåœ¨ä¸Šä¸€ä¸ªgroupçš„èµ·å§‹åŸºå› IDä¹‹åã€‚
 perl step3_gene_group_check.pl Soy_genepair_grouping_sort.txt
-#½«°üº¬µÄ»ùÒòÔÚÎ»ÖÃÉÏÓĞÖØµşµÄgroupºÏ²¢µ½Ò»Æğ
-perl step4_group_merge.pl Soy_genepair_grouping_sort.txt >Soy_genepair_grouping_sort_merge.txt £¨2284¸ögroup£©
+#å°†åŒ…å«çš„åŸºå› åœ¨ä½ç½®ä¸Šæœ‰é‡å çš„groupåˆå¹¶åˆ°ä¸€èµ·
+perl step4_group_merge.pl Soy_genepair_grouping_sort.txt >Soy_genepair_grouping_sort_merge.txt ï¼ˆ2284ä¸ªgroupï¼‰
 
-µÚËÄ²½£º°´ÕÕ»ùÒòÖ®¼äµÄ¾àÀë£¬½«ÖØµşµÄgroupÖØĞÂ·Ö×é¡£
-#¸ù¾İÉî¶ÈÑ§Ï°ÖĞµÄDBSCAN¾ÛÀà·½·¨£¬¹Ø¼ü²ÎÊımin_samples=2£¬epsÍ¨¹ı»ùÒòÖ®¼äµÄ×î¶ÌK¾àÀëµÄ·Ö²¼À´×Ô¶¯Ê¶±ğ¡£Èç¹ûmergegroupÖĞµÄ»ùÒò¶àÓÚ2¸ö£¬ÄÇÃ´Èç¹ûeps<=2,ÔòÉèÖÃÎª2.Èç¹ûmergegroupÖĞµÄ»ùÒòÓĞ2¸ö£¬ÄÇÃ´Èç¹ûeps>2,Ôò¸ÃgroupµÄ»ùÒòµÄ·Ö×émarkerÎª¡°-1¡±£¨²»·Ö×é£©.
-#Êä³ö½á¹ûÊÇÔÚÊäÈë½á¹ûµÄ»ù´¡ÉÏÔö¼ÓÁË»ùÒòÖ®¼äµÄ¾àÀëÖµ¡¢×î¼ÑepsÖµ¡¢»ùÒòµÄ·Ö×émarker
+ç¬¬å››æ­¥ï¼šæŒ‰ç…§åŸºå› ä¹‹é—´çš„è·ç¦»ï¼Œå°†é‡å çš„groupé‡æ–°åˆ†ç»„ã€‚
+#æ ¹æ®æ·±åº¦å­¦ä¹ ä¸­çš„DBSCANèšç±»æ–¹æ³•ï¼Œå…³é”®å‚æ•°min_samples=2ï¼Œepsé€šè¿‡åŸºå› ä¹‹é—´çš„æœ€çŸ­Kè·ç¦»çš„åˆ†å¸ƒæ¥è‡ªåŠ¨è¯†åˆ«ã€‚å¦‚æœmergegroupä¸­çš„åŸºå› å¤šäº2ä¸ªï¼Œé‚£ä¹ˆå¦‚æœeps<=2,åˆ™è®¾ç½®ä¸º2.å¦‚æœmergegroupä¸­çš„åŸºå› æœ‰2ä¸ªï¼Œé‚£ä¹ˆå¦‚æœeps>2,åˆ™è¯¥groupçš„åŸºå› çš„åˆ†ç»„markerä¸ºâ€œ-1â€ï¼ˆä¸åˆ†ç»„ï¼‰.
+#è¾“å‡ºç»“æœæ˜¯åœ¨è¾“å…¥ç»“æœçš„åŸºç¡€ä¸Šå¢åŠ äº†åŸºå› ä¹‹é—´çš„è·ç¦»å€¼ã€æœ€ä½³epså€¼ã€åŸºå› çš„åˆ†ç»„marker
 python step5_mergegroup_splitmark.py <Soy_genepair_grouping_sort_merge.txt >Soy_genepair_grouping_sort_merge_splitmark.txt
-#×¼±¸Ò»¸ö»ùÒò¶ÔÓ¦Ô­Ê¼groupµÄÎÄ¼ş£¬Ã¿ĞĞÁ½ÁĞ£¬·Ö±ğÎª»ùÒòºÍ¶ÔÓ¦µÄgroupĞÅÏ¢¡£Èç¹ûÒ»¸ö»ùÒòÊôÓÚÁ½¸ögroup£¬Ôò»á±¨´í
+#å‡†å¤‡ä¸€ä¸ªåŸºå› å¯¹åº”åŸå§‹groupçš„æ–‡ä»¶ï¼Œæ¯è¡Œä¸¤åˆ—ï¼Œåˆ†åˆ«ä¸ºåŸºå› å’Œå¯¹åº”çš„groupä¿¡æ¯ã€‚å¦‚æœä¸€ä¸ªåŸºå› å±äºä¸¤ä¸ªgroupï¼Œåˆ™ä¼šæŠ¥é”™
 python step6_1vs1_format.py Soy_genepair_grouping.txt >Soy_genepair_grouping_1vs1.txt
-#¸ù¾İ»ùÒòµÄ·Ö×émarker£¬½«mergegroupÖØĞÂ½øĞĞ·Ö×é¡£ĞèÒª¶îÍâÌá¹©Ò»¸ö»ùÒò¶ÔÓ¦Ô­Ê¼groupµÄÎÄ¼ş£¬ÓÃÀ´Êä³ö·ÖÎªÒ»×éµÄ»ùÒòµÄÔ­Ê¼µÄgroupĞÅÏ¢£¬Í¬Ê±¾ö¶¨ËùÊôĞÂgroupµÄÃû³Æ
-python step7_merge_split.py Soy_genepair_grouping_sort_merge_splitmark.txt Soy_genepair_grouping_1vs1.txt retain_group.txt filter_group.txt £¨±£Áôgroup2715¸ö£¬ ¹ıÂËµô174¸ö£©
+#æ ¹æ®åŸºå› çš„åˆ†ç»„markerï¼Œå°†mergegroupé‡æ–°è¿›è¡Œåˆ†ç»„ã€‚éœ€è¦é¢å¤–æä¾›ä¸€ä¸ªåŸºå› å¯¹åº”åŸå§‹groupçš„æ–‡ä»¶ï¼Œç”¨æ¥è¾“å‡ºåˆ†ä¸ºä¸€ç»„çš„åŸºå› çš„åŸå§‹çš„groupä¿¡æ¯ï¼ŒåŒæ—¶å†³å®šæ‰€å±æ–°groupçš„åç§°
+python step7_merge_split.py Soy_genepair_grouping_sort_merge_splitmark.txt Soy_genepair_grouping_1vs1.txt retain_group.txt filter_group.txt ï¼ˆä¿ç•™group2715ä¸ªï¼Œ è¿‡æ»¤æ‰174ä¸ªï¼‰
 
-µÚÎå²½£º¶ÔÉÏÒ»²½µÄretain_group£¬°´ÕÕgroupÊÇ·ñ°üº¬1¸öÒÔÉÏµÄÔ­Ê¼group£¬·ÖÎªsingle gene groupºÍmulti gene groupÁ½Àà
-python step8_group_classify.py retain_group.txt retain_multi_group.txt retain_single_group.txt £¨single gene group 2119¸ö, multiple gene group 596¸ö£©
+ç¬¬äº”æ­¥ï¼šå¯¹ä¸Šä¸€æ­¥çš„retain_groupï¼ŒæŒ‰ç…§groupæ˜¯å¦åŒ…å«1ä¸ªä»¥ä¸Šçš„åŸå§‹groupï¼Œåˆ†ä¸ºsingle gene groupå’Œmulti gene groupä¸¤ç±»
+python step8_group_classify.py retain_group.txt retain_multi_group.txt retain_single_group.txt ï¼ˆsingle gene group 2119ä¸ª, multiple gene group 596ä¸ªï¼‰
 
-µÚÁù²½£º¶ÔÉÏÒ»²½multiple gene groupÔÙ´Î½øĞĞ²ğ·Ö£¬Èç¹ûÒ»¸ögroupÖĞÄ³¸ögroupIDÖ»ÓĞÒ»¸ö»ùÒò£¬ÔòÈ¥µô¸ÃgroupID,Èç¹ûgroupIDÈ«²¿ÔÚgroupµÄÆğÊ¼»òÕßÖÕÖ¹Î»ÖÃ£¬Ôò½«¸ÃgroupÇĞ·ÖÎªÒ»¸öĞÂµÄgroup£¬Ê£ÏÂµÄgroupÒÀ´Î½øĞĞ´¦Àí£¬Èç¹û×îºóÊ£Óà»ùÒòÉÙÓÚ3¸ö£¬Ôò²»Êä³ö
-#²ğ·Ögroup
+ç¬¬å…­æ­¥ï¼šå¯¹ä¸Šä¸€æ­¥multiple gene groupå†æ¬¡è¿›è¡Œæ‹†åˆ†ï¼Œå¦‚æœä¸€ä¸ªgroupä¸­æŸä¸ªgroupIDåªæœ‰ä¸€ä¸ªåŸºå› ï¼Œåˆ™å»æ‰è¯¥groupID,å¦‚æœgroupIDå…¨éƒ¨åœ¨groupçš„èµ·å§‹æˆ–è€…ç»ˆæ­¢ä½ç½®ï¼Œåˆ™å°†è¯¥groupåˆ‡åˆ†ä¸ºä¸€ä¸ªæ–°çš„groupï¼Œå‰©ä¸‹çš„groupä¾æ¬¡è¿›è¡Œå¤„ç†ï¼Œå¦‚æœæœ€åå‰©ä½™åŸºå› å°‘äº3ä¸ªï¼Œåˆ™ä¸è¾“å‡º
+#æ‹†åˆ†group
 python step9_multigroup_split.py retain_multi_group.txt retain_multi_group_split.txt 
-#¸ù¾İ²ğ·ÖµÄ½á¹û£¬·ÖÎª°üº¬µ¥¸ögroupIDµÄgroupºÍ°üº¬¶à¸ögroupIDµÄgroup
-python step8_group_classify.py retain_multi_group_split.txt retain_multi_group_multi_group.txt retain_multi_group_single_group.txt  £¨single gene group 429¸ö, multiple gene group 167¸ö£©
+#æ ¹æ®æ‹†åˆ†çš„ç»“æœï¼Œåˆ†ä¸ºåŒ…å«å•ä¸ªgroupIDçš„groupå’ŒåŒ…å«å¤šä¸ªgroupIDçš„group
+python step8_group_classify.py retain_multi_group_split.txt retain_multi_group_multi_group.txt retain_multi_group_single_group.txt  ï¼ˆsingle gene group 429ä¸ª, multiple gene group 167ä¸ªï¼‰
 
-µÚÆß²½£º½«²»Í¬²½Öè²ğ·ÖµÄsingle gene group½øĞĞºÏ²¢£¬ĞŞ¸ÄÎÄ¼şÃû³Æ
-cat retain_single_group.txt retain_multi_group_split_single.txt | sort -k2,2 >singlegene_tandem_repeat.txt  £¨single gene group 2548¸ö£©
-mv retain_multi_group_multi_group.txt multigene_tandem_repeat.txt £¨multiple gene group 167¸ö£©
+ç¬¬ä¸ƒæ­¥ï¼šå°†ä¸åŒæ­¥éª¤æ‹†åˆ†çš„single gene groupè¿›è¡Œåˆå¹¶ï¼Œä¿®æ”¹æ–‡ä»¶åç§°
+cat retain_single_group.txt retain_multi_group_split_single.txt | sort -k2,2 >singlegene_tandem_repeat.txt  ï¼ˆsingle gene group 2548ä¸ªï¼‰
+mv retain_multi_group_multi_group.txt multigene_tandem_repeat.txt ï¼ˆmultiple gene group 167ä¸ªï¼‰
+
